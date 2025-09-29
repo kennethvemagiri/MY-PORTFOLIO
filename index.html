@@ -162,56 +162,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
-    /* Typewriter Animation */
-    @keyframes typewriter {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
-    
-    @keyframes blink-caret {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: #14b8a6;
-      }
-    }
-    
-    .typewriter {
-      overflow: hidden;
-      border-right: 3px solid #14b8a6;
-      white-space: nowrap;
-      margin: 0 auto;
-      animation: 
-        typewriter 4s steps(120, end),
-        blink-caret 0.75s step-end infinite;
-      animation-delay: 1s;
-      animation-fill-mode: both;
-    }
-    
-    .typewriter-multiline {
-      overflow: hidden;
-      white-space: pre-wrap;
-      animation: typewriter-multiline 6s steps(200, end);
-      animation-delay: 1s;
-      animation-fill-mode: both;
-    }
-    
-    @keyframes typewriter-multiline {
-      from {
-        opacity: 0;
-        width: 0;
-      }
-      to {
-        opacity: 1;
-        width: 100%;
-      }
-    }
   </style>
 </head>
 
@@ -278,7 +228,7 @@
           </div>
           
           <!-- Description -->
-          <p class="max-w-2xl text-base text-slate-600 leading-relaxed text-left typewriter-multiline">
+          <p class="max-w-2xl text-base text-slate-600 leading-relaxed text-left">
             Transforming raw data into <span class="font-semibold text-emerald-600">meaningful insights</span> that drive business strategy. 
             Expert in <span class="font-semibold text-emerald-600">Python, SQL, and PowerBI</span> with a passion for 
             <span class="font-semibold text-emerald-600">AI and Machine Learning</span>.
