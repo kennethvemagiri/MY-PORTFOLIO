@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Prabhakar Kenneth Vemagiri — Portfolio</title>
+  <meta name="description" content="Portfolio of Prabhakar Kenneth (Kenny) Vemagiri — MSc AI graduate & aspiring Data Analyst.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b0e14;
+      --card:#111522;
+      --muted:#96a0b5;
+      --text:#e7ecf5;
+      --accent:#6ee7ff;
+      --accent2:#a78bfa;
+      --ring: rgba(102, 126, 234, .45);
+    }
+    * { box-sizing: border-box; }
+    html,body { margin:0; padding:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display:block; }
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+    .nav { position: sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,14,20,.6); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding: .9rem 0; gap:1rem; }
+    .brand { font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:.6rem; }
+    .brand-badge { width:28px;height:28px; border-radius:8px; background:linear-gradient(135deg, var(--accent), var(--accent2)); }
+    .nav a { opacity:.9; }
+    .nav-links { display:flex; gap:1.2rem; font-weight:600; font-size:.95rem; }
+    .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.68rem .95rem; border-radius:12px; background: linear-gradient(135deg, rgba(110,231,255,.12), rgba(167,139,250,.12)); border:1px solid rgba(255,255,255,.08); box-shadow: 0 0 0 0 var(--ring); transition: box-shadow .2s, transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px -12px var(--ring); }
+    .hero { padding: 64px 0 40px; display:grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items:center; }
+    .hero-card { background: radial-gradient(1200px 400px at 10% -10%, rgba(110,231,255,.08), transparent), radial-gradient(800px 300px at 90% -10%, rgba(167,139,250,.08), transparent), var(--card); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding: 28px; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); line-height:1.15; margin:.2rem 0 1rem; }
+    .muted { color: var(--muted); }
+    .pill { font-size:.8rem; padding:.35rem .6rem; border:1px solid rgba(255,255,255,.12); border-radius:999px; display:inline-block; background: rgba(255,255,255,.04); }
+    .stack { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.6rem; }
+    .avatar { width: 180px; aspect-ratio:1/1; border-radius:22px; border:1px solid rgba(255,255,255,.1); overflow:hidden; box-shadow: 0 18px 60px -30px var(--ring); }
+    .section { padding: 40px 0; }
+    .section h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); margin: 0 0 16px; }
+    .grid { display:grid; gap: 16px; }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); border:1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 18px; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.14); box-shadow: 0 20px 50px -30px var(--ring); }
+    .card h3 { margin:.2rem 0 .4rem; font-size:1.05rem; }
+    .badges { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem; }
+    .badge { font-size:.75rem; padding:.25rem .5rem; border-radius:999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+    .edu { display:flex; align-items:center; gap:.9rem; }
+    .edu img { width:36px; height:36px; object-fit:contain; border-radius:8px; background:#fff; padding:3px; }
+    .footer { border-top: 1px solid rgba(255,255,255,.06); padding: 30px 0 50px; color:var(--muted); font-size:.92rem; }
+    .contact-card input, .contact-card textarea { width:100%; padding:.8rem 1rem; background: rgba(255,255,255,.03); color:var(--text); border:1px solid rgba(255,255,255,.12); border-radius:12px; outline:none; }
+    .contact-card textarea { min-height:120px; resize:vertical; }
+    .contact-card form { display:grid; gap:.8rem; }
+    .split { display:flex; gap:16px; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="brand-badge"></span> <span>Kenny Vemagiri</span></div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn" href="#contact" aria-label="Contact">Contact me</a>
+    </div>
+  </nav>
+
+  <header class="container hero">
+    <div class="hero-card">
+      <span class="pill">MSc Artificial Intelligence • Data Analyst</span>
+      <h1>Turning data into clear decisions.</h1>
+      <p class="muted">I’m <strong>Prabhakar Kenneth (Kenny) Vemagiri</strong>, an AI graduate with hands-on experience in <em>dashboards</em>, <em>data quality</em>, and <em>ML‑powered apps</em> such as a Movie Recommender. I love clean visuals, useful insights, and shipping things.</p>
+      <div class="stack">
+        <span class="badge">Python</span>
+        <span class="badge">Pandas</span>
+        <span class="badge">SQL</span>
+        <span class="badge">Excel</span>
+        <span class="badge">Power BI / Looker Studio</span>
+        <span class="badge">Scikit‑learn</span>
+        <span class="badge">Git</span>
+      </div>
+      <div style="margin-top:16px; display:flex; gap:.6rem; flex-wrap:wrap;">
+        <a class="btn" href="#projects">View projects</a>
+        <a class="btn" href="Kenneth_Portfolio_Complete/Profile.jpg" download>Download photo</a>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:center;">
+      <img class="avatar" alt="Kenny profile" src="Kenneth_Portfolio_Complete/Profile.jpg">
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="projects" class="section">
+      <h2>Featured projects</h2>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Sales Data Analysis Dashboard</h3>
+          <p class="muted">Automated data processing, revealed key trends, and improved forecasting accuracy by ~10%.</p>
+          <div class="badges">
+            <span class="badge">Power BI</span><span class="badge">DAX</span><span class="badge">ETL</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Social Media Analytics</h3>
+          <p class="muted">Analysed audience behaviour to guide content strategy; boosted engagement by 15% and followers by 10%.</p>
+          <div class="badges">
+            <span class="badge">Python</span><span class="badge">Pandas</span><span class="badge">Visualisation</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Movie Recommender</h3>
+          <p class="muted">Built a recommendation system with search by mood/day; fast results and clean UI.</p>
+          <div class="badges">
+            <span class="badge">scikit‑learn</span><span class="badge">Flask</span><span class="badge">HTML/CSS</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Data &amp; Analytics</h3>
+          <ul class="muted">
+            <li>Data wrangling &amp; cleaning (Pandas, SQL)</li>
+            <li>Exploratory analysis &amp; visualisation</li>
+            <li>Dashboards (Power BI, Looker Studio)</li>
+            <li>Machine learning fundamentals</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Software</h3>
+          <ul class="muted">
+            <li>Python, SQL, Git</li>
+            <li>Excel (advanced), CSV/JSON handling</li>
+            <li>Basic web dev (HTML, CSS, JS)</li>
+            <li>Premiere Pro (video edits)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Experience</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Data Analyst Intern</h3>
+          <p class="muted">Industrial placement — delivered analytics for campaigns and product data; documented pipelines and improved data quality.</p>
+          <div class="badges"><span class="badge">Python</span><span class="badge">SQL</span><span class="badge">Power BI</span></div>
+        </div>
+        <div class="card">
+          <h3>Creative Team Lead — CSI (GITAM)</h3>
+          <p class="muted">Led campaigns and branding for student-led initiatives; organised workshops &amp; hackathons for 500+ participants; mentored juniors.</p>
+          <div class="badges"><span class="badge">Leadership</span><span class="badge">Branding</span><span class="badge">Events</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <h2>Education</h2>
+      <div class="grid grid-2">
+        <div class="card edu">
+          <img src="Kenneth_Portfolio_Complete/uel-logo.png" alt="UEL">
+          <div>
+            <strong>University of East London — MSc Artificial Intelligence</strong>
+            <div class="muted">Graduated 2025</div>
+          </div>
+        </div>
+        <div class="card edu">
+          <img src="Kenneth_Portfolio_Complete/gitam-logo.png" alt="GITAM">
+          <div>
+            <strong>GITAM — BSc (CS)</strong>
+            <div class="muted">Creative Team Lead, CSI Student Branch</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="grid grid-2">
+        <div class="card contact-card">
+          <form onsubmit="event.preventDefault(); alert('Thanks, I will get back to you!'); this.reset();">
+            <input required placeholder="Your name">
+            <input required type="email" placeholder="Your email">
+            <textarea placeholder="Your message"></textarea>
+            <button class="btn" type="submit">Send message</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Let’s work together</h3>
+          <p class="muted">Open to data analyst roles (remote or UK). I enjoy building dashboards and tools that actually get used.</p>
+          <div class="badges">
+            <span class="badge">Available now</span><span class="badge">Leicester, UK</span>
+          </div>
+          <div style="margin-top:12px">
+            <a class="btn" href="#" onclick="alert('Add your CV.pdf path here'); return false;">Download CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2025 Kenny Vemagiri — Built with HTML/CSS/JS.</div>
+  </footer>
+</body>
+</html>

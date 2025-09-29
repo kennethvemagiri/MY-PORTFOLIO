@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Life Snake Game</title>
+  <style>
+    body {
+      background: #000;
+      margin: 0;
+      font-family: sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      background: #111;
+      margin-top: 20px;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐍 Life Snake</h1>
+  <canvas id="game" width="400" height="400"></canvas>
+  <div id="status">Health: ❤️❤️❤️ | Saving: ❌ | Score: 0 | High Score: 0</div>
+  <button id="restart" style="margin-top:10px;display:none;">Restart</button>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const box = 20;
+    const rows = canvas.height / box;
+    const cols = canvas.width / box;
+
+    let snake = [{ x: 5, y: 5 }];
+    let direction = 'RIGHT';
+    let health = 3;
+    let saving = false;
+    let score = 0;
+    let highScore = Number(localStorage.getItem('lifeSnakeHighScore') || 0);
+    let paused = false;
+    let speed = 150;
+    let loop = null;
+    let healthFlash = 0;
+
+    const items = [];
+
+    const drawRect = (x, y, color) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(x * box, y * box, box - 1, box - 1);
+    };
+
+    const randomItem = () => {
+      const types = ['food', 'money', 'save'];
+      const weights = [0.5, 0.3, 0.2];
+      const rand = Math.random();
+      let sum = 0;
+      for (let i = 0; i < types.length; i++) {
+        sum += weights[i];
+        if (rand <= sum) return types[i];
+      }
+    };
+
+    const spawnItem = () => {
+      const x = Math.floor(Math.random() * cols);
+      const y = Math.floor(Math.random() * rows);
+      if (snake.some(s => s.x === x && s.y === y)) return;
+      items.push({ x, y, type: randomItem() });
+    };
+
+    const updateStatus = () => {
+      const heart = "❤️".repeat(health);
+      document.getElementById("status").innerHTML = `Health: ${heart} | Saving: ${saving ? '✅' : '❌'} | Score: ${score} | High Score: ${highScore}`;
+    };
+
+    const flashHealth = (color) => {
+      healthFlash = 5;
+      canvas.style.boxShadow = `0 0 20px 5px ${color}`;
+      setTimeout(() => { canvas.style.boxShadow = ''; }, 200);
+    };
+
+    const gameOver = (msg) => {
+      alert(msg);
+      clearInterval(loop);
+      document.getElementById('restart').style.display = 'inline-block';
+    };
+
+    const gameLoop = () => {
+      if (paused) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Move snake
+      const head = { ...snake[0] };
+      if (direction === 'LEFT') head.x--;
+      if (direction === 'RIGHT') head.x++;
+      if (direction === 'UP') head.y--;
+      if (direction === 'DOWN') head.y++;
+
+      // Wall or self collision
+      if (
+        head.x < 0 || head.y < 0 || head.x >= cols || head.y >= rows ||
+        snake.some(s => s.x === head.x && s.y === head.y)
+      ) {
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem('lifeSnakeHighScore', highScore);
+        }
+        gameOver('Game Over!');
+        return;
+      }
+
+      snake.unshift(head);
+
+      let ate = false;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.x === head.x && item.y === head.y) {
+          if (item.type === 'food') {
+            health++;
+            score += 5;
+            flashHealth('lime');
+          } else if (item.type === 'money') {
+            if (saving) {
+              saving = false;
+              score += 10;
+            } else {
+              health--;
+              flashHealth('red');
+            }
+          } else if (item.type === 'save') {
+            saving = true;
+            score += 2;
+            flashHealth('deepskyblue');
+          }
+          items.splice(i, 1);
+          ate = true;
+          break;
+        }
+      }
+
+      if (!ate) snake.pop();
+      if (health <= 0) {
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem('lifeSnakeHighScore', highScore);
+        }
+        gameOver('Health Depleted. Game Over!');
+        return;
+      }
+
+      // Draw items
+      for (let item of items) {
+        const color = item.type === 'food' ? 'lime' :
+                      item.type === 'money' ? 'gold' : 'deepskyblue';
+        drawRect(item.x, item.y, color);
+      }
+
+      // Draw snake
+      for (let i = 0; i < snake.length; i++) {
+        drawRect(snake[i].x, snake[i].y, i === 0 ? 'white' : 'gray');
+      }
+
+      if (items.length < 5) spawnItem();
+      updateStatus();
+
+      // Increase speed every 50 points
+      if (score > 0 && score % 50 === 0 && speed > 60) {
+        speed -= 10;
+        clearInterval(loop);
+        loop = setInterval(gameLoop, speed);
+      }
+    };
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+      if (e.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+      if (e.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+      if (e.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+      if (e.key === ' ' || e.key === 'Spacebar') {
+        paused = !paused;
+        document.getElementById('status').innerHTML += paused ? ' (Paused)' : '';
+      }
+    });
+
+    document.getElementById('restart').onclick = () => {
+      snake = [{ x: 5, y: 5 }];
+      direction = 'RIGHT';
+      health = 3;
+      saving = false;
+      score = 0;
+      speed = 150;
+      items.length = 0;
+      paused = false;
+      document.getElementById('restart').style.display = 'none';
+      updateStatus();
+      clearInterval(loop);
+      loop = setInterval(gameLoop, speed);
+    };
+
+    updateStatus();
+    loop = setInterval(gameLoop, speed);
+  </script>
+</body>
+</html>
